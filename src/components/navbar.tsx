@@ -28,8 +28,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("afrolab-theme")
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    const dark = savedTheme ? savedTheme === "dark" : prefersDark
+    const dark = savedTheme === "dark"
     document.documentElement.classList.toggle("theme-dark", dark)
     setIsDark(dark)
   }, [])
