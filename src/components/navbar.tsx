@@ -76,25 +76,30 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* mobile only - burger menu icon */}
-      <motion.div
-        initial={{ scale: 1, y: 0 }}
-        whileTap={{ scale: 0.8 }}
-        transition={{ duration: 0.3 }}
-        className="bg-white shadow-none flex md:hidden cursor-pointer text-black"
-        onClick={toggleMenu}
-      >
-        {!isOpen && <AlignJustify size={20} />}
-        {isOpen && <X size={20} />}
-      </motion.div>
-      <button
-        type="button"
-        onClick={toggleTheme}
-        aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-        className="glass-hover ml-auto mr-4 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-secondary text-black md:hidden"
-      >
-        {isDark ? <Sun size={18} /> : <Moon size={18} />}
-      </button>
+      <div className="ml-auto flex items-center gap-3 md:hidden">
+        <button
+          type="button"
+          onClick={toggleTheme}
+          aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+          className="glass-hover inline-flex h-10 min-w-max items-center justify-center gap-2 rounded-full border border-border bg-secondary px-3 text-sm font-medium text-black"
+        >
+          {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          <span>{isDark ? "Dark mode" : "Light mode"}</span>
+        </button>
+
+        <motion.button
+          type="button"
+          initial={{ scale: 1, y: 0 }}
+          whileTap={{ scale: 0.8 }}
+          transition={{ duration: 0.3 }}
+          className="flex h-10 w-10 items-center justify-center rounded-full text-black"
+          onClick={toggleMenu}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+        >
+          {!isOpen && <AlignJustify size={20} />}
+          {isOpen && <X size={20} />}
+        </motion.button>
+      </div>
 
       {/* mobile only - menu container with AnimatePresence for exit animations */}
       <AnimatePresence>
