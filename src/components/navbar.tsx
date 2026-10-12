@@ -27,16 +27,14 @@ export default function Navbar() {
   const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("afrolab-theme")
-    const dark = savedTheme === "dark"
-    document.documentElement.classList.toggle("theme-dark", dark)
-    setIsDark(dark)
+    window.localStorage.removeItem("afrolab-theme")
+    document.documentElement.classList.remove("theme-dark")
+    setIsDark(false)
   }, [])
 
   const toggleTheme = () => {
     const dark = !isDark
     document.documentElement.classList.toggle("theme-dark", dark)
-    window.localStorage.setItem("afrolab-theme", dark ? "dark" : "light")
     setIsDark(dark)
   }
 
