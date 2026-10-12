@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { useScroll, useTransform } from 'motion/react'
 import * as motion from 'motion/react-m'
 import { Check, Circle, Code2, Sparkles } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 const codeLines = [
   'const agent = createAgent({',
@@ -16,15 +17,25 @@ const codeLines = [
 ]
 
 const actions = ['Understand project context', 'Write and review code', 'Connect tools and APIs', 'Deploy agent workspace']
+const codeText = codeLines.join('\n')
 
 export default function AIWorkspace() {
   const workspaceRef = useRef<HTMLDivElement>(null)
+  const [visibleCharacters, setVisibleCharacters] = useState(0)
   const { scrollYProgress } = useScroll({
     target: workspaceRef,
     offset: ['start 90%', 'end 10%'],
   })
   const scale = useTransform(scrollYProgress, [0, 0.45, 1], [0.9, 1, 0.96])
   const rotateX = useTransform(scrollYProgress, [0, 0.45, 1], [4, 0, 0])
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setVisibleCharacters((current) => current >= codeText.length ? 0 : current + 1)
+    }, visibleCharacters >= codeText.length ? 1400 : 34)
+
+    return () => window.clearTimeout(timeout)
+  }, [visibleCharacters])
 
   return (
     <motion.div
@@ -38,10 +49,6 @@ export default function AIWorkspace() {
           <span>AFROLAB</span>
           <span className="text-foreground">/ agent-workspace</span>
         </div>
-        <div className="flex items-center gap-2 rounded-full bg-primary/15 px-3 py-1 text-xs font-medium text-black">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
-          Agent building
-        </div>
       </div>
 
       <div className="grid md:grid-cols-[1.15fr_0.85fr]">
@@ -52,18 +59,21 @@ export default function AIWorkspace() {
             <Circle size={10} fill="#111" className="text-black" />
             <span className="ml-2">agent.ts</span>
           </div>
-          {codeLines.map((line, index) => (
-            <div key={`${line}-${index}`} className="flex min-h-7">
-              <span className="mr-5 w-4 select-none text-right text-[#65766d]">{index + 1}</span>
-              <span
-                className="code-line max-w-0 overflow-hidden whitespace-pre text-[#bde8cb]"
-                style={{ animationDelay: `${index * 350}ms` }}
-              >
-                {line || ' '}
-              </span>
-              {index === 6 && <span className="code-caret ml-0.5 text-primary">|</span>}
-            </div>
-          ))}
+          {codeLines.map((line, index) => {
+            const lineStart = codeLines.slice(0, index).reduce((total, previous) => total + previous.length + 1, 0)
+            const charactersInLine = Math.max(0, Math.min(line.length, visibleCharacters - lineStart))
+            const caretVisible = visibleCharacters >= lineStart && visibleCharacters <= lineStart + line.length
+
+            return (
+              <div key={`${line}-${index}`} className="flex min-h-7">
+                <span className="mr-5 w-4 select-none text-right text-[#65766d]">{index + 1}</span>
+                <span className="whitespace-pre text-[#bde8cb]">
+                  {line.slice(0, charactersInLine)}
+                </span>
+                {caretVisible && <span className="code-caret ml-0.5 text-primary">|</span>}
+              </div>
+            )
+          })}
         </div>
 
         <div className="flex flex-col justify-center gap-5 bg-secondary p-5 sm:p-7">

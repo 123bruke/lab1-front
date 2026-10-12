@@ -6,7 +6,7 @@ import TextBlurEffect from "@/components/text-blur-effect";
 import AIWorkspace from "@/components/ai-workspace"
 import HeroBackgroundCarousel from "@/components/hero-background-carousel"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, CloudUpload, Code2, PlugZap } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link";
 
 const settings = {
@@ -40,34 +40,28 @@ export default function Hero() {
           {/* Buttons */}
           <div className="flex flex-col md:flex-row items-center w-full justify-center gap-3 md:gap-4 mt-1">
             <Link href={settings.mainCTA.href} className="w-full">
-              <Button size='lg' className="capitalize w-full hidden lg:flex">
+              <Button size='lg' className="glass-hover capitalize w-full hidden lg:flex">
                 {settings.mainCTA.content}
                 <ArrowRight />
               </Button>
 
-              <Button size='default' className="capitalize w-full flex lg:hidden">
+              <Button size='default' className="glass-hover capitalize w-full flex lg:hidden">
                 {settings.mainCTA.content}
                 <ArrowRight />
               </Button>
             </Link>
 
             <Link href={settings.secondaryCTA.href} className="w-full">
-              <Button size='lg' className="capitalize w-full hidden lg:flex" variant='secondary'>
+              <Button size='lg' className="glass-hover capitalize w-full hidden lg:flex" variant='secondary'>
                 {settings.secondaryCTA.content}
               </Button>
 
-              <Button size='default' className="capitalize w-full flex lg:hidden" variant='secondary'>
+              <Button size='default' className="glass-hover capitalize w-full flex lg:hidden" variant='secondary'>
                 {settings.secondaryCTA.content}
               </Button>
             </Link>
           </div>
 
-          {/* Reviews */}
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] font-medium text-black">
-            <span className="inline-flex items-center gap-1"><Code2 size={12} className="text-black" /> Build</span>
-            <span className="inline-flex items-center gap-1"><PlugZap size={12} className="text-black" /> Integrate</span>
-            <span className="inline-flex items-center gap-1"><CloudUpload size={12} className="text-black" /> Deploy</span>
-          </div>
         </SlideEffect>
 
         <SlideEffect className="relative w-full" isSpring={false} duration={1.3}>

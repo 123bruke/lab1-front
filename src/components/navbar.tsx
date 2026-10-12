@@ -59,21 +59,21 @@ export default function Navbar() {
         <ul className="flex items-center justify-center gap-5 text-black font-medium select-none text-link">
           {settings.navLinks.map(link => (
             <li key={link.name}>
-              <Link href={link.href} title={link.name} className="hover:opacity-80 transition-all capitalize">{link.name}</Link>
+              <Link href={link.href} title={link.name} className="glass-hover rounded-full px-3 py-2 transition-all capitalize hover:opacity-80">{link.name}</Link>
             </li>
           ))}
         </ul>
 
         {/* Call To Action */}
         <Link href={settings.cta.href} title={settings.cta.content}>
-          <Button className="capitalize">{settings.cta.content}</Button>
+          <Button className="glass-hover capitalize">{settings.cta.content}</Button>
         </Link>
         <button
           type="button"
           onClick={toggleTheme}
           aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
           title={`Switch to ${isDark ? "light" : "dark"} mode`}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-secondary text-black transition-colors hover:bg-muted"
+          className="glass-hover flex h-10 w-10 items-center justify-center rounded-full border border-border bg-secondary text-black transition-colors hover:bg-muted"
         >
           {isDark ? <Sun size={18} /> : <Moon size={18} />}
         </button>
@@ -94,7 +94,7 @@ export default function Navbar() {
         type="button"
         onClick={toggleTheme}
         aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-        className="ml-auto mr-4 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-secondary text-black md:hidden"
+        className="glass-hover ml-auto mr-4 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-secondary text-black md:hidden"
       >
         {isDark ? <Sun size={18} /> : <Moon size={18} />}
       </button>
@@ -119,7 +119,7 @@ export default function Navbar() {
               </ul>
 
               <Link href={settings.cta.href} title={settings.cta.content} onClick={toggleMenu}>
-                <Button className="w-full capitalize">{settings.cta.content}</Button>
+                <Button className="glass-hover w-full capitalize">{settings.cta.content}</Button>
               </Link>
             </div>
           </motion.div>
